@@ -1,0 +1,17 @@
+AI Lab repository: suggested four-stage commit history
+
+1. Scrape
+   git add ai_lab_pipeline.py
+   git commit -m "Scrape: extract firm profiles from nested HTML table and save raw CSV"
+
+2. Clean
+   git add ai_lab_pipeline.py
+   git commit -m "Clean: standardize missing values, numeric fields, and AI adoption indicator"
+
+3. Analyze
+   git add ai_lab_pipeline.py
+   git commit -m "Analyze: add naive OLS, propensity scores, matching, SMD checks, and output files"
+
+4. Interpret
+   git add interpretation.tex
+   git commit -m "Interpret: add LaTeX write-up with coefficient comparison, assumptions, figure, and tables"

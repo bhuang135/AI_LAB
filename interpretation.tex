@@ -1,0 +1,67 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage[T1]{fontenc}
+
+\onehalfspacing
+
+\title{AI Lab Assignment Interpretation}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Interpretation}
+
+After applying propensity score matching (PSM), the estimated coefficient on AI adoption decreased substantially from 4.96 in the naive OLS model to 1.08 in the matched sample. The statistical significance also disappeared, with the p-value rising from 0.0006 to 0.5236. This shift suggests that the original positive association between AI adoption and revenue growth was likely inflated by selection bias. In the unmatched sample, firms that adopted AI were not directly comparable to firms that did not. They tended to differ in observable characteristics such as annual revenue, digital sales intensity, team size, and customer account scale. As a result, part of the naive OLS coefficient appears to reflect pre-existing firm advantages rather than the isolated effect of AI adoption itself.
+
+This result has an important implication for AI impact stories. In practice, high-performing or more digitally mature firms are often more likely to adopt AI first. If an analysis does not adjust for this non-random adoption pattern, it can overstate the business effect of AI and confuse correlation with causal impact. Here, the large drop in the AI coefficient after matching suggests that this type of selection bias was meaningful in the raw comparison.
+
+Regarding model assumptions, the common support condition appears only partially satisfactory. Matching was feasible, but only 8 treated-control pairs were formed from 21 treated and 14 control observations, which suggests limited overlap. The balancing assumption also improved only partially. Standardized mean differences fell after matching for several covariates, especially Digital Sales, but important imbalance remained in Annual Revenue, Customer Accounts, and Team Size. Overall, PSM produced a more credible estimate than the naive model, but residual imbalance means the findings should still be interpreted cautiously.
+
+\section*{Relevant Figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{propensity_score_distribution.png}
+    \caption{Distribution of propensity scores for AI-adopting and non-adopting firms.}
+\end{figure}
+
+\section*{Relevant Tables}
+
+\begin{table}[H]
+\centering
+\caption{Baseline and Post-Matching AI Coefficients}
+\begin{tabular}{lcc}
+\toprule
+Model & AI Coefficient & P-value \\
+\midrule
+Naive OLS & 4.959524 & 0.000611 \\
+Post-Matching OLS & 1.075000 & 0.523593 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Standardized Mean Difference Before and After Matching}
+\begin{tabular}{lrrrr}
+\toprule
+Covariate & SMD Before & SMD After & $|$SMD Before$|$ & $|$SMD After$|$ \\
+\midrule
+Annual Rev. & 0.760317 & 0.557054 & 0.760317 & 0.557054 \\
+Customer Accts & 0.605111 & -0.473311 & 0.605111 & 0.473311 \\
+Digital Sales & 0.875964 & -0.205268 & 0.875964 & 0.205268 \\
+Founded & -0.180427 & -0.158046 & 0.180427 & 0.158046 \\
+Team Size & 0.791287 & 0.550733 & 0.791287 & 0.550733 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}
